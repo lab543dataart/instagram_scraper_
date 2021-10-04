@@ -16,5 +16,3 @@ RUN python manage.py migrategh pr checkout 1
 EXPOSE 8000
 
 CMD ["gunicorn", "instagram_scraper.wsgi", "--bind", "0.0.0.0:8000"]
-
-ddd
