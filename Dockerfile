@@ -20,4 +20,4 @@ RUN python manage.py migrate
 
 EXPOSE 8000
 
-CMD ["gunicorn", "instagram_scraper.wsgi", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "/home/instagram_scraper_/instagram_scraper.wsgi", "--bind", "0.0.0.0:8000"]
