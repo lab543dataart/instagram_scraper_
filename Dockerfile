@@ -13,7 +13,8 @@ RUN pip install -r requirements.txt
 RUN pip install gunicorn
 
 RUN echo "SECRET_KEY=django-insecure-6@&7*^y97x@@3k4-vf-+)5g^!q=z0lt*m9q)#nents+marm+x)" > .env
-RUN python manage.py migrategh pr checkout 1
+
+RUN python manage.py migrate
 
 EXPOSE 8000
 
