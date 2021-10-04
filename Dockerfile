@@ -2,7 +2,7 @@ FROM python:3.9.0
 
 WORKDIR /home/
 
-RUN git clone https://github.com/jeongmin-bak/instagram_scraper.git
+RUN git clone https://github.com/jeongmin-bak/instagram_scraper_.git
 
 WORKDIR /home/instagram_scraper/
 

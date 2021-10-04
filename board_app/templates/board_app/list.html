@@ -38,7 +38,7 @@
                         <span>{{ board.author }}</span>
                     </td>
                     <td>
-                        <span>{{ board.created_date | date:"Y-m-d h:i" }}</span>
+                        <span>{{ board.created_date | date:"Y-m-d" }}</span>
                     </td>
                     <td>
                         <a class="btn btn-primary" href="/board/export_user_xls/{{ board.id }}" role="button">다운로드</a>

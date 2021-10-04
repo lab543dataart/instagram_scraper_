@@ -6,9 +6,11 @@
     </div>
 
     <div>
-        <a href="{% url 'boardapp:board' %}?next={{ request.path }}">
-        <span>board</span>
-        </a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'boardapp:board' %}?next={{ request.path }}">
+            <span>board</span>
+            </a>
+        {% endif %}
         <span>nav2</span>
         <span>nav3</span>
         {% if not user.is_authenticated %}
