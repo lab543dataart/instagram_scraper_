@@ -6,6 +6,8 @@ RUN git clone https://github.com/jeongmin-bak/instagram_scraper_.git
 
 WORKDIR /home/instagram_scraper/
 
+RUN pip install --upgrade pip
+
 RUN pip install -r requirements.txt
 
 RUN pip install gunicorn
