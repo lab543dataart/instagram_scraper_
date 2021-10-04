@@ -71,34 +71,51 @@ def json(keyword, content):
             for m in ((n['layout_content']['medias'])):
                 m = m['media']
                 data = {}
-                data['keyword'] = keyword
-                # 키워드게시물 링크
-                data['URL'] = 'https://www.instagram.com/p/' + m['code'] + "/"
 
-                # 게시글 작성 일자
+                # hashtag
+                data['hashtag'] = keyword
+
+                # 게시글 작성 일자(date)
                 try:
-                    data['DatePublished'] = datetime.fromtimestamp(m['caption']['created_at'])
+                    data['Date'] = datetime.fromtimestamp(m['caption']['created_at'])
                 except:
                     continue
 
-                data['content'] = m['caption']['text']
+                # number
+                data['number'] = str(m['user']['pk'])
 
-                # 게시물 댓글 수/ 댓글
+                # insta_id
+                data['insta_id'] = (m['user']['username'])
+
+                # profile
+                data['profile'] = (m['user']['full_name'])
+
+                # contents
+                data['contents'] = m['caption']['text']
+
+                # like_cnt
+                data['like'] = (m['like_count'])
+
+                # comment_cnt, comments
                 try:
-                    data['reply'] = (m['comment_count'])
-                    data['replyList'] = (m['comments'][0]['text'])
+                    data['comment_cnt'] = (m['comment_count'])
+
+                    temp = []
+                    for j in range(0, int(data['comment_cnt'])):
+                        temp.append(m['comments'][j]['text'])
+                    result = " ".join(temp)
+                    data['comments'] = result
 
                 except:
-                    data['reply'] = 0
-                    data['replyList'] = []
+                    data['comment_cnt'] = 0
+                    data['comments'] = []
 
-                data['like'] = (m['like_count'])
-                data['user_full_name'] = (m['user']['full_name'])
-                data['user_pk'] = str(m['user']['pk'])
-                data['user_name'] = (m['user']['username'])
+                # feed_url
+                data['URL'] = 'https://www.instagram.com/p/' + m['code'] + "/"
+
                 dataList.append(data)
 
-                keyword = data['keyword']
+                hashtag = data['hashtag']
                 url = data['URL']
                 writeData = data['DatePublished']
                 content = data['content']
@@ -122,7 +139,7 @@ def export_users_xls(request,id):
     ws = wb.add_sheet('sheet1')
 
     row_num = 0
-    col_names = ['해시태그', 'url', '생성날짜','본문','댓글 수','댓글목록','좋아요 수','유저 인스타이름','유저 고유번호','유저 인스타아이디']
+    col_names = ['hashtag', 'url', '생성날짜','본문','댓글 수','댓글목록','좋아요 수','유저 인스타이름','유저 고유번호','유저 인스타아이디']
 
     # 열이름을 첫번째 행에 추가 시켜준다.
     for idx, col_name in enumerate(col_names):
