@@ -4,7 +4,7 @@ WORKDIR /home/
 
 RUN git clone https://github.com/jeongmin-bak/instagram_scraper_.git
 
-WORKDIR /home/instagram_scraper/
+WORKDIR /home/instagram_scraper_/
 
 RUN pip install --upgrade pip
 
