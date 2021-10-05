@@ -98,16 +98,16 @@ def json(keyword, content):
 
                 # comment_cnt, comments
                 try:
-                    data['comment_cnt'] = (m['comment_count'])
+                    data['comments_cnt'] = (m['comment_count'])
 
                     temp = []
-                    for j in range(0, int(data['comment_cnt'])):
+                    for j in range(0, int(data['comments_cnt'])):
                         temp.append(m['comments'][j]['text'])
                     result = " ".join(temp)
                     data['comments'] = result
 
                 except:
-                    data['comment_cnt'] = 0
+                    data['comments_cnt'] = 0
                     data['comments'] = []
 
                 # feed_url
@@ -117,16 +117,16 @@ def json(keyword, content):
 
                 hashtag = data['hashtag']
                 url = data['URL']
-                writeData = data['DatePublished']
-                content = data['content']
-                reply = data['reply']
-                replyList = data['replyList']
+                Date = data['Date']
+                contents = data['contents']
+                comments_cnt = data['comments_cnt']
+                comments = data['comments']
                 like = data['like']
-                user_name = data['user_full_name']
-                user_pk = data['user_pk']
-                user_id = data['user_name']
+                profile = data['profile']
+                number = data['number']
+                insta_id = data['insta_id']
 
-                info = Keyword(keyword=keyword, url=url, writeData=writeData, content=content, reply=reply, replyList=replyList, like=like, user_name=user_name, user_pk=user_pk, user_id=user_id)
+                info = Keyword(keyword=hashtag, url=url, writeData=Date, content=contents, reply=comments_cnt, replyList=comments, like=like, user_name=profile, user_pk=number, user_id=insta_id)
                 info.save()
         i = i+1
         URL = 'https://www.instagram.com/explore/tags/' + keyword + '/?__a=1&max_id=' + max_id
@@ -139,15 +139,14 @@ def export_users_xls(request,id):
     ws = wb.add_sheet('sheet1')
 
     row_num = 0
-    col_names = ['hashtag', 'url', '생성날짜','본문','댓글 수','댓글목록','좋아요 수','유저 인스타이름','유저 고유번호','유저 인스타아이디']
+    col_names = ['hashtag', 'Date', 'number','insta_id','profile','cotents','like','comments_cnt','comments','url']
 
     # 열이름을 첫번째 행에 추가 시켜준다.
     for idx, col_name in enumerate(col_names):
         ws.write(row_num, idx, col_name)
 
-    #rows = Keyword.objects.all().values_list('keyword','url','writeData','content','reply','replyList','like','user_name','user_pk','user_id')
-    #print(Keyword.objects.filter(keyword=board.keyword).values_list('keyword','url','writeData','content','reply','replyList','like','user_name','user_pk','user_id'))
-    rows = Keyword.objects.filter(keyword=board.keyword).values_list('keyword','url','writeData','content','reply','replyList','like','user_name','user_pk','user_id')
+    #rows = Keyword.objects.filter(keyword=board.keyword).values_list(,'url','writeData','content','reply','replyList','like','user_name',)
+    rows = Keyword.objects.filter(keyword=board.keyword).values_list('keyword','writeData','user_pk','user_id','user_name','content','like','reply','replyList','url')
     for row in rows:
         row_num += 1
         for col_num, attr in enumerate(row):
